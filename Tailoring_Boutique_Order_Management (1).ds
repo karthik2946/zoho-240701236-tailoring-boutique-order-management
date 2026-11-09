@@ -1,0 +1,1450 @@
+/*
+ * Author       : karthikkn2946
+ * Generated on : 06-Nov-2026 18:12:47
+ * Version      : 1.0
+ */
+ application "Tailoring Boutique Order Management"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "UTC"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Customer_Details
+		{
+			displayname = "Customer Details"
+			success message = "Customer Detail Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Customer_Name
+			(
+    			type = name
+				displayname = "Customer Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Phone_Number1
+			(
+    			type = phonenumber
+				displayname = "Phone Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Email_Address
+			(
+    			type = email
+				displayname = "Email Address"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Customer_Measurements
+		{
+			displayname = "Customer Measurements"
+			success message = "Customer Measurement Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Customer_Name
+			(
+				type = picklist	
+				displayname = "Customer Name"
+				values  = Customer_Details.ID
+    			displayformat = [" " + Customer_Name.first_name + " " + Customer_Name.last_name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Garment_Type
+			(
+				type = picklist
+				displayname = "Garment Type"
+				maxchar = 100
+				values = {"Shirt","Formal Trousers","Casual Pants","Kurta","Shorts"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Chest_Measurement_inches
+			(
+				type = number
+				displayname = "Chest Measurement (inches)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Waist_Measurement_inches
+			(
+				type = number
+				displayname = "Waist Measurement (inches)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Hip_Measurement_inches
+			(
+				type = number
+				displayname = "Hip Measurement (inches)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sleeve_Length_inches
+			(
+				type = number
+				displayname = "Sleeve Length (inches)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Notes
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Tailoring_Orders
+		{
+			displayname = "Tailoring Orders"
+			success message = "Order Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Customer_Name
+			(
+				type = picklist	
+				displayname = "Customer Name"
+				values  = Customer_Details.ID
+    			displayformat = [" " + Customer_Name.first_name + " " + Customer_Name.last_name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Garment_Type
+			(
+				type = picklist
+				displayname = "Garment Type"
+				maxchar = 100
+				values = {"Formal Shirt","Casual Shirt","Formal Trousers","Jeans Alteration","Blazer","Kurta","Suit","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Order_Date
+			(
+    			type = date
+				displayname = "Order Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Delivery_Date
+			(
+    			type = date
+				displayname = "Delivery Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Order_Price
+			(
+				displayname = "Order Price (₹)"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Order_Status
+			(
+				type = picklist
+				displayname = "Order Status"
+				maxchar = 100
+				values = {"Received","Stitching","Ready for Trial","Ready for Delivery","Delivered"}
+				initial value = "Received"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Payment_Status
+			(
+				type = picklist
+				displayname = "Payment Status"
+				maxchar = 100
+				values = {"Unpaid","Partially Paid","Paid"}
+				initial value = "Unpaid"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Special_Instructions
+			(
+    			type = textarea
+				displayname = "Special Instructions"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Keyword
+			(
+    			type = textarea
+				displayname = "Instruction Keywords"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+						AI_Properties
+						(
+									fieldtype = KeywordExtractor
+									basefield = Special_Instructions
+						)
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Tailoring"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list All_Customer_Details
+		{
+			displayName = "All Customer Details"
+			show all rows from Customer_Details    
+			(
+				Customer_Name  as "Customer Name"
+				Phone_Number1 as "Phone Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email_Address as "Email Address"
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+			)
+		}
+		default list All_Customer_Measurements
+		{
+			displayName = "All Customer Measurements"
+			show all rows from Customer_Measurements    
+			(
+				Customer_Name as "Customer Name"
+				Garment_Type as "Garment Type"
+				Chest_Measurement_inches as "Chest Measurement (inches)"
+				Waist_Measurement_inches as "Waist Measurement (inches)"
+				Hip_Measurement_inches as "Hip Measurement (inches)"
+				Sleeve_Length_inches as "Sleeve Length (inches)"
+				Notes
+			)
+		}
+		default list All_Orders
+		{
+			displayName = "All Orders"
+			show all rows from Tailoring_Orders    
+			(
+				Customer_Name as "Customer Name"
+				Garment_Type as "Garment Type"
+				Order_Date as "Order Date"
+				Delivery_Date as "Delivery Date"
+				Order_Price as "Order Price (₹)"
+				Order_Status as "Order Status"
+				Payment_Status as "Payment Status"
+				Special_Instructions as "Special Instructions"
+				Keyword as "Instruction Keywords"
+			)
+		}
+		list All_Tailoring_Orders
+		{
+			displayName = "All Tailoring Orders"
+			show all rows from Tailoring_Orders    
+			(
+				Customer_Name as "Customer Name"
+				Garment_Type as "Garment Type"
+				Order_Date as "Order Date"
+				Delivery_Date as "Delivery Date"
+				Order_Price as "Order Price (₹)"
+				Order_Status as "Order Status"
+				Payment_Status as "Payment Status"
+				Special_Instructions as "Special Instructions"
+			)
+		}
+		list Pending_Orders
+		{
+			displayName = "Pending Orders"
+			show all rows from Tailoring_Orders  [Order_Status != "Delivered"]  
+			(
+				Customer_Name as "Customer Name"
+				Garment_Type as "Garment Type"
+				Order_Date as "Order Date"
+				Delivery_Date as "Delivery Date"
+				Order_Price as "Order Price (₹)"
+				Order_Status as "Order Status"
+				Payment_Status as "Payment Status"
+				Special_Instructions as "Special Instructions"
+			)
+		}
+		list Delivered_Orders
+		{
+			displayName = "Delivered Orders"
+			show all rows from Tailoring_Orders  [Order_Status == "Delivered"]  
+			(
+				Customer_Name as "Customer Name"
+				Garment_Type as "Garment Type"
+				Order_Date as "Order Date"
+				Delivery_Date as "Delivery Date"
+				Order_Price as "Order Price (₹)"
+				Order_Status as "Order Status"
+				Payment_Status as "Payment Status"
+				Special_Instructions as "Special Instructions"
+			)
+		}
+		list Overdue_Deliveries
+		{
+			displayName = "Overdue Deliveries"
+			show all rows from Tailoring_Orders  [Delivery_Date < '13-Oct-2026' && Order_Status != "Delivered"]  
+			(
+				Customer_Name as "Customer Name"
+				Garment_Type as "Garment Type"
+				Order_Date as "Order Date"
+				Delivery_Date as "Delivery Date"
+				Order_Price as "Order Price (₹)"
+				Order_Status as "Order Status"
+				Payment_Status as "Payment Status"
+				Special_Instructions as "Special Instructions"
+			)
+		}
+	}
+	pages
+	{
+		page Mens_Tailoring_Dashboard
+		{
+			displayname = "Mens Tailoring Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet()\ncontent\n&lt;%{\n\t%&gt;\n&lt;div style=&quot;background:#1f3a5f; color:#ffffff; padding:24px; text-align:center; border-radius:8px; font-family:Arial, sans-serif;&quot;&gt;\n  &lt;h1 style=&quot;margin:0; font-size:28px; letter-spacing:1px;&quot;&gt;MEN&apos;S &amp;amp; BOYS&apos; TAILORING BOUTIQUE&lt;/h1&gt;\n  &lt;p style=&quot;margin:8px 0 0 0; font-size:15px;&quot;&gt;Stitching \u2022 Alterations \u2022 Measurements \u2022 Delivery Tracking&lt;/p&gt;\n&lt;/div&gt;\n&lt;%\n\n}%&gt;]]>\n</dsp>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'transparent'\n\n\t\twidth = '33%'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<button \n\t\tmargin = '0px'\n\tpaddingTop = '12px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '12px'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'Tailoring_Orders'\n\t\ttarget = 'new-window'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n\tfontFamily = 'arimo, sans-serif' \n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\ttext ='Add New Order'\n\t\tbgColor = 'theme'\n\t\tcornerRadius = '20px' \n/>\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '17px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '17px'\n\tpaddingBottom = '17px'\n\tbgColor = 'transparent'\n\n\t\twidth = '33%'\n\t\thAlign = 'center'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<button \n\t\tmargin = '0px'\n\tpaddingTop = '12px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '12px'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'Customer_Details'\n\t\ttarget = 'new-window'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n    borderColor = 'theme'\n    borderWidth = '1px'\n\ttext ='Add Customer'\n\t\tbgColor = 'theme'\n\t\tcornerRadius = '20px' \n/>\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '17px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '17px'\n\tpaddingBottom = '17px'\n\tbgColor = 'transparent'\n\n\t\twidth = '34%'\n\t\thAlign = 'center'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<button \n\t\tmargin = '0px'\n\tpaddingTop = '12px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '12px'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'Customer_Measurements'\n\t\ttarget = 'new-window'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n    borderColor = 'theme'\n    borderWidth = '1px'\n\ttext ='Add Measurements'\n\t\tbgColor = 'theme'\n\t\tcornerRadius = '20px' \n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'All_Tailoring_Orders'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 1'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Pending_Orders'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 2'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Overdue_Deliveries'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 3'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Delivered_Orders'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Order Status Distribution'\n\n\ttype = 'Pie'\n\txtitle = 'Order Status'\n\tytitle = 'Number of Orders'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Tailoring_Orders'\n\txfield = 'Order_Status'\n\tyfields = 'count:Order_Status'\n\tshowDataLabel = 'true'\n/>\n\n</column>\n</row>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Notify_Ready_For_Delivery as "Notify Ready For Delivery"
+			{
+				type =  form
+				form = Tailoring_Orders
+
+				record event = on add or edit
+
+				on success
+				{
+					actions  (Order_Status == "Ready for Delivery")
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "karthikkn2946@gmail.com"
+							subject : "Your order is ready for delivery"
+							message : "<div>Hello, your tailoring order is ready for delivery. Please collect it from the boutique. Thank you. <br></div>"
+						)
+					}
+				}
+
+			}
+			Sync_Customer_to_CRM as "Sync Customer to CRM"
+			{
+				type =  form
+				form = Customer_Details
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+							ZohoCRM.v2.createContact(data:{"Email":"Email_Address","Last_Name":"Customer_Name.last_name","Phone":"Phone_Number1"});
+					}
+				}
+
+			}
+			Price_in_USD as "Price in USD"
+			{
+				type =  form
+				form = Tailoring_Orders
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											adminMail = "karthikkn2946@gmail.com";
+										response = invokeurl
+										[
+											url :"https://open.er-api.com/v6/latest/INR"
+											type :GET
+										];
+										rate = response.get("rates").get("USD");
+										usd = input.Order_Price * rate;
+										sendmail
+										[
+											from :zoho.adminuserid
+											to :adminMail
+											subject :"Order price in USD"
+											message :"New order price: Rs " + input.Order_Price + " = approx USD " + usd.round(2) + " (live exchange rate from an external API)."
+										]
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Overdue_Order_Reminder as "Overdue Order Reminder"
+			{
+				type =  schedule
+					status = inactive
+				start = "2026-10-20 07:15:00"
+				frequency = daily
+				time zone = "UTC"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						adminMail = "karthikkn2946@gmail.com";
+										overdue = Tailoring_Orders[Delivery_Date < zoho.currentdate && Order_Status != "Delivered"];
+										if(overdue.count() > 0)
+										{
+											body = "You have " + overdue.count() + " overdue order(s):<br>";
+											for each  rec in overdue
+											{
+												body = body + "- " + rec.Customer_Name.Customer_Name + " | " + rec.Garment_Type + " | due " + rec.Delivery_Date + "<br>";
+											}
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :adminMail
+												subject :"Overdue Tailoring Orders"
+												message :body
+											]
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form Customer_Details
+			{
+				label placement = left
+			}
+			form Customer_Measurements
+			{
+				label placement = left
+			}
+			form Tailoring_Orders
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report All_Customer_Details
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Phone_Number1 as "Phone Number"
+								Email_Address as "Email Address"
+								Address
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Phone_Number1 as "Phone Number"
+								Email_Address as "Email Address"
+								Address
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Customer_Measurements
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Chest_Measurement_inches as "Chest Measurement (inches)"
+								Waist_Measurement_inches as "Waist Measurement (inches)"
+								Hip_Measurement_inches as "Hip Measurement (inches)"
+								Sleeve_Length_inches as "Sleeve Length (inches)"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Chest_Measurement_inches as "Chest Measurement (inches)"
+								Waist_Measurement_inches as "Waist Measurement (inches)"
+								Hip_Measurement_inches as "Hip Measurement (inches)"
+								Sleeve_Length_inches as "Sleeve Length (inches)"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Orders
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+								Special_Instructions as "Special Instructions"
+								Keyword as "Instruction Keywords"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Tailoring_Orders
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+								Special_Instructions as "Special Instructions"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Pending_Orders
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+								Special_Instructions as "Special Instructions"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Delivered_Orders
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+								Special_Instructions as "Special Instructions"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Overdue_Deliveries
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Customer_Name as "Customer Name"
+								Garment_Type as "Garment Type"
+								Order_Date as "Order Date"
+								Delivery_Date as "Delivery Date"
+								Order_Price as "Order Price (₹)"
+								Order_Status as "Order Status"
+								Payment_Status as "Payment Status"
+								Special_Instructions as "Special Instructions"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "space"
+				icon = "tech-desktop"
+
+				section Home
+				{
+					displayname = "Home"
+					icon = "ui-1-home-minimal"
+					page Mens_Tailoring_Dashboard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = connection
+						displayname = "Connection"
+						icon = "tech-2-device-connection"
+					}
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Task"
+						icon = "design-todo"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Task"
+						icon = "ui-2-hourglass"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Customer_Details
+				{
+					displayname = "Customer Details"
+					icon = "users-2-contacts-44"
+					form  Customer_Details
+					{
+						icon = "users-2-contacts-44"
+					}
+					report All_Customer_Details
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Customer_Measurements
+				{
+					displayname = "Customer Measurements"
+					icon = "ui-1-database"
+					form  Customer_Measurements
+					{
+						icon = "ui-1-database"
+					}
+					report All_Customer_Measurements
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Orders
+				{
+					displayname = "Orders"
+					icon = "shopping-list"
+					form  Tailoring_Orders
+					{
+						icon = "shopping-list"
+					}
+					report All_Orders
+					{
+						icon = "tech-desktop"
+					}
+					report All_Tailoring_Orders
+					{
+						icon = "shopping-list"
+					}
+					report Pending_Orders
+					{
+						icon = "shopping-list"
+					}
+					report Delivered_Orders
+					{
+						icon = "shopping-list"
+					}
+					report Overdue_Deliveries
+					{
+						icon = "shopping-list"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+					show = {section,component}
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Customer_Details
+			{
+				label placement = auto
+			}
+			form Customer_Measurements
+			{
+				label placement = auto
+			}
+			form Tailoring_Orders
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = onecolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = yellow
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Customer_Details
+			{
+				label placement = auto
+			}
+			form Customer_Measurements
+			{
+				label placement = auto
+			}
+			form Tailoring_Orders
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = yellow
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
